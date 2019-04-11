@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Blog.Article>
+<style>
+    .yazi{
+        font-family:'Times New Roman';
+    }
+</style>
+
+<div class="sidebox widget">
+    <h3 class="widget-title section-title yazi">Populyar Məqalələr</h3>
+    <ul class="post-list">
+        @foreach (Blog.Article article in Model)
+        {
+        <li>
+            <div class="icon-overlay yazi"> <a href="/Article/Detail/@article.ArticleId"><img src="@article.Imagee.Middle" alt="" /> </a> </div>
+            <div class="meta">
+                <h5><a class="yazi" href="/Article/Detail/@article.ArticleId">@article.Title</a></h5>
+                <em>@article.UploadDate.ToShortDateString() <span class="comments"><a href="#">@article.Comments.Count <i class="icon-chat-1"></i></a></span> </em>
+            </div>
+        </li>
+        }
+        
+    </ul>
+    <!-- /.post-list -->
+</div>

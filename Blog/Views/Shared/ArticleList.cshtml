@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+<script src="~/Content/style/js/jquery.min.js"></script>
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+        $(document).ready(function myfunction() {
+            $("a.like1").click(function myfunction() {
+                var id = $(this).data("id");
+                var link = "/Article/Like/" + id;
+                $.ajax({
+                    type: "GET",
+                    url: link,
+                    success: function (result) {
+                        $("a.like").html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}
+else
+{
+    <script>
+        $(document).ready(function myfunction() {
+            $("a.like1").click(function myfunction() {
+                alert("Daxil Olun və ya Qeydiyyatdan keçin")
+            });
+        });
+    </script>
+}
+
+@model IEnumerable<Blog.Article>
+@helper ContentShort(string text)
+{
+    if (text.Length > 300)
+    {
+        @text.Substring(0, 300);
+    }
+    else
+    {
+        @text;
+    }
+}
+<style>
+    .yazi {
+        font-family: 'Times New Roman';
+    }
+</style>
+<style>
+    #yazi {
+        font-family: 'Times New Roman';
+    }
+</style>
+
+<div class="blog-posts col-blog">
+    @foreach (Blog.Article arcl in Model)
+    {
+        <div class="post row">
+            <div class="col-sm-4">
+                <figure>
+                    <a href="/Article/Detail/@arcl.ArticleId">
+                        <div class="text-overlay">
+                            <div class="info "><span id="yazi">Hamısını Oxu</span></div>
+                        </div>
+                        <img src="@arcl.Imagee.Middle" alt="" />
+                    </a>
+                </figure>
+            </div>
+            <div class="col-sm-8 post-content">
+                <div class="meta">
+                    <span class="date">@arcl.UploadDate.ToShortDateString()</span><span class="comments"><a href="#">@arcl.Comments.Count <i class="icon-chat-1"></i></a></span>
+                    <span>
+                        <a class="like" href="javascript:void(0);" data-id="@arcl.ArticleId">
+                            @arcl.Like
+                        </a>
+                        <a class="like1" href="javascript:void(0)" ; data-id="@arcl.ArticleId">
+                            <img src="~/Content/Image/like1.png" />
+                        </a>
+                    </span>
+
+                    <span>
+                        <a href="#">
+                            @arcl.Views
+                            <img src="/Content/Image/view.png" />
+                        </a>
+                    </span>
+                </div>
+                <h2 class="post-title yazi"><a href="/Article/Detail/@arcl.ArticleId">@arcl.Title</a></h2>
+                <p>@ContentShort(arcl.Content)</p>
+            </div>
+        </div>
+    }
+
+
+</div>
+

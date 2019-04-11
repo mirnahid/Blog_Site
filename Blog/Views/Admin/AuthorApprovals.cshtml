@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Yazar Təstiqləri";
+}
+
+@model IEnumerable<Blog.Nahid>
+<table>
+    @foreach (Blog.Nahid nhd in Model)
+    {
+        <tr>
+            <td>@nhd.Name @nhd.Surname</td>
+            <td><a href="/Admin/Approved/@nhd.UserId">Təstiqlə</a></td>
+        </tr>
+    }
+    </table>
+

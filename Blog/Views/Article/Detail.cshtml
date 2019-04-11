@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = Model.Title;
+}
+
+@model Blog.Article
+<style>
+    #yazi {
+        font-family: 'Times New Roman';
+    }
+</style>
+@section head{
+
+    <script src="~/Content/style/js/jquery.min.js"></script>
+    <script>
+        $(document).ready(function myfunction() {
+            function view(id) {
+                var link = "/Article/Views" + id;
+                $.ajax({
+                    type: "GET",
+                    url: link,
+                    success: function myfunction() {
+
+                    }
+                });
+            }
+        });
+    </script>
+}
+<div class="blog-posts classic-blog single">
+
+    <div class="post format-image">
+        <div class="meta">
+            <span class="date">@Model.UploadDate</span>
+            <span class="categories"><a href="/Category/Index/@Model.CategoryID">@Model.Category.Name</a></span>
+            <span class="comments"><a href="#comment">@Model.Comments.Count<i class="icon-chat-1"></i></a></span>
+        </div>
+        <h1 class="post-title" id="yazi">@Model.Title</h1>
+        <figure class="main">
+            <img src="@Model.Imagee.Big" alt="" />
+        </figure>
+        <div class="post-content">
+            <p id="yazi">@Model.Content</p>
+            <div class="meta tags">
+                @foreach (Blog.Tag tag in Model.Tags)
+                {
+                    <a href="/Tag/Index/@tag.TagId" id="yazi">@tag.Name</a>
+                }
+            </div>
+            <div class="click-share">
+                <ul>
+                    <li><a class="btn share-facebook" href="#" id="yazi">Bəyən</a></li>
+                    <li><a class="btn share-twitter" href="#">Tweet</a></li>
+                    <li><a class="btn share-pinterest" href="#" id="yazi">Pinterest də Paylaş</a></li>
+                </ul>
+            </div>
+            <!-- /.share-links -->
+
+        </div>
+    </div>
+    <!-- /.post -->
+
+</div>
+<!-- /.blog-posts -->
+@*<div class="about-author dark-wrapper">
+        <div class="author-image"> <img alt="" src="@Model.Nahid.Image.Middle" /> </div>
+        <div class="author-details">
+            <h3>@Model.Nahid.Name  @Model.Nahid.Surname Haqqında</h3>
+            <p>@Model.Nahid.Name</p>
+            <ul class="social">
+                <li><a href="#"><i class="icon-s-twitter"></i></a></li>
+                <li><a href="#"><i class="icon-s-facebook"></i></a></li>
+                <li><a href="#"><i class="icon-s-pinterest"></i></a></li>
+                <li><a href="#"><i class="icon-s-dribbble"></i></a></li>
+                <li><a href="#"><i class="icon-s-linkedin"></i></a></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>*@
+<div class="divide100"></div>
+<a id="comment"></a>
+<div id="comments">
+    <h3 id="yazi">@Model.Comments.Count Rəy</h3>
+    <ol id="singlecomments" class="commentlist">
+        @foreach (Blog.Comment comment in Model.Comments)
+        {
+            <li>
+                <div class="comment-wrapper">
+                    <div class="user"><img alt="" src="~/Content/Image/default.png" class="avatar" /></div>
+                    <div class="message">
+                        <div class="arrow-box">
+                            <div class="info">
+                                <h2 id="yazi"><a href="#">Connor Gibson</a>@comment.NameSurname</h2>
+                                <div class="meta"> <span class="date">@comment.UploadDate.ToShortDateString()</span> </div>
+                            </div>
+                            <p id="yazi">@comment.Comment1</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+
+
+    </ol>
+</div>
+<!-- /#comments -->
+<div class="divide100"></div>
+<div class="comment-form-wrapper">
+    <h3 id="yazi">Düşüncələrini Paylaşmaq İstərsən?</h3>
+    <p id="yazi">Email adresiniz yayımlanmayacaq.lazımlı yerlər işarətlənmişdir *</p>
+    <form class="comment-form" name="form_name" action="/Article/CommentWrite/@Model.ArticleId" method="post">
+        <div class="name-field">
+            <label><i class="icon-user"></i></label>
+            <input type="text" name="namesurname" placeholder="Ad Soyad*" />
+        </div>
+        <div class="email-field">
+            <label><i class="icon-mail-alt"></i></label>
+            <input type="text" name="email" placeholder="Email*" />
+        </div>
+        <div class="website-field">
+            <label><i class="icon-globe"></i></label>
+            <input type="text" name="website" placeholder="Web Sayt" />
+        </div>
+        <div class="message-field">
+            <textarea name="Comment" id="textarea yazi" rows="5" cols="30" placeholder="Rəyiniz..."></textarea>
+        </div>
+        <input id="yazi" type="submit" value="Əlavə Et" name="submit" class="btn btn-submit" />
+    </form>
+</div>
+
+
+
+
